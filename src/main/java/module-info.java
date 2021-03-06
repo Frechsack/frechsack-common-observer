@@ -1,2 +1,2 @@
-module frechsack.common.observer.c {
+module frechsack.common.observer {
 }
