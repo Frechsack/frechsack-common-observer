@@ -530,19 +530,19 @@ public class SimpleNumberWrapper extends AbstractNumberWrapper<Number> implement
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return get().byteValue();
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return get().shortValue();
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return get().intValue();
     }
@@ -554,19 +554,19 @@ public class SimpleNumberWrapper extends AbstractNumberWrapper<Number> implement
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return get().doubleValue();
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return get().longValue();
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
         Number value = get();
         if (isBigDecimal(value)) return (BigDecimal) value;
@@ -576,7 +576,7 @@ public class SimpleNumberWrapper extends AbstractNumberWrapper<Number> implement
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
         Number value = get();
         if (isBigDecimal(value)) return ((BigDecimal) value).toBigInteger();

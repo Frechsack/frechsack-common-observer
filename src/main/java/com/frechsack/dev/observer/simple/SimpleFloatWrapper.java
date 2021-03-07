@@ -2,13 +2,11 @@ package com.frechsack.dev.observer.simple;
 
 import com.frechsack.dev.observer.core.BooleanExpression;
 import com.frechsack.dev.observer.core.NumberExpression;
-import com.frechsack.dev.observer.core.StringExpression;
 import com.frechsack.dev.observer.core.ObservableSingle;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class SimpleFloatWrapper extends AbstractNumberWrapper<Float> implements NumberExpression<Float>
@@ -537,19 +535,19 @@ public class SimpleFloatWrapper extends AbstractNumberWrapper<Float> implements 
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return get().byteValue();
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return get().shortValue();
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return get().intValue();
     }
@@ -561,26 +559,26 @@ public class SimpleFloatWrapper extends AbstractNumberWrapper<Float> implements 
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return get().doubleValue();
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return get().longValue();
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
         return BigDecimal.valueOf(getFloat());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 }

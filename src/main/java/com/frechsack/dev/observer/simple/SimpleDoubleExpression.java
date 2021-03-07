@@ -65,12 +65,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> add(Number value)
     {
         if (saveNumber(value).doubleValue() == 0) return this;
-        return new SimpleDoubleExpression(getDouble() + saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() + saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() + saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() + saveDouble(value));
             }
         };
     }
@@ -78,12 +78,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> add(Supplier< ? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() + saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() + saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() + saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() + saveDouble(value));
             }
         };
     }
@@ -91,12 +91,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> add(ObservableSingle<? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() + saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() + saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() + saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() + saveDouble(value));
             }
         };
     }
@@ -105,12 +105,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> subtract(Number value)
     {
         if (saveDouble(value) == 0) return this;
-        return new SimpleDoubleExpression(getDouble() - saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() - saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() - saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() - saveDouble(value));
             }
         };
     }
@@ -118,12 +118,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> subtract(Supplier<? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() - saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() - saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() - saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() - saveDouble(value));
             }
         };
     }
@@ -131,12 +131,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> subtract(ObservableSingle<? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() - saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() - saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() - saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() - saveDouble(value));
             }
         };
     }
@@ -146,12 +146,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     {
         if (saveDouble(value) == 0) return constantExpression(0d);
         if (saveDouble(value) == 1) return this;
-        return new SimpleDoubleExpression(getDouble() * saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() * saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() * saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() * saveDouble(value));
             }
         };
     }
@@ -159,12 +159,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> multiply(Supplier<? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() * saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() * saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() * saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() * saveDouble(value));
             }
         };
     }
@@ -172,12 +172,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> multiply(ObservableSingle<? extends Number> value)
     {
-        return new SimpleDoubleExpression(getDouble() * saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() * saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() * saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() * saveDouble(value));
             }
         };
     }
@@ -187,12 +187,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     {
         if (saveDouble(value) == 0) throw divisionByZeroException();
         if (saveDouble(value) == 1) return this;
-        return new SimpleDoubleExpression(getDouble() / saveDouble(value), this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() / saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() / saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() / saveDouble(value));
             }
         };
     }
@@ -201,13 +201,13 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> divide(Supplier<? extends Number> value)
     {
         double divisor = saveDouble(value);
-        return new SimpleDoubleExpression(divisor == 0 ? 0 : getDouble() / divisor, this, getEventHandler())
+        return new SimpleDoubleExpression(divisor == 0 ? 0 : getAsDouble() / divisor, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 double divisor = saveDouble(value);
-                setValue(divisor == 0 ? 0 : SimpleDoubleExpression.this.getDouble() / divisor);
+                setValue(divisor == 0 ? 0 : SimpleDoubleExpression.this.getAsDouble() / divisor);
             }
         };
     }
@@ -216,13 +216,13 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> divide(ObservableSingle<? extends Number> value)
     {
         double divisor = saveDouble(value);
-        return new SimpleDoubleExpression(divisor == 0 ? 0 : getDouble() / divisor, List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(divisor == 0 ? 0 : getAsDouble() / divisor, List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 double divisor = saveDouble(value);
-                setValue(divisor == 0 ? 0 : SimpleDoubleExpression.this.getDouble() / divisor);
+                setValue(divisor == 0 ? 0 : SimpleDoubleExpression.this.getAsDouble() / divisor);
             }
         };
     }
@@ -230,12 +230,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> pow(Number value)
     {
-        return new SimpleDoubleExpression(Math.pow(getDouble(), saveDouble(value)), this, getEventHandler())
+        return new SimpleDoubleExpression(Math.pow(getAsDouble(), saveDouble(value)), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(Math.pow(SimpleDoubleExpression.this.getDouble(), saveDouble(value)));
+                setValue(Math.pow(SimpleDoubleExpression.this.getAsDouble(), saveDouble(value)));
             }
         };
     }
@@ -243,12 +243,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> pow(Supplier<? extends Number> value)
     {
-        return new SimpleDoubleExpression(Math.pow(getDouble(), saveDouble(value)), this, getEventHandler())
+        return new SimpleDoubleExpression(Math.pow(getAsDouble(), saveDouble(value)), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(Math.pow(SimpleDoubleExpression.this.getDouble(), saveDouble(value)));
+                setValue(Math.pow(SimpleDoubleExpression.this.getAsDouble(), saveDouble(value)));
             }
         };
     }
@@ -256,12 +256,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> pow(ObservableSingle<? extends Number> value)
     {
-        return new SimpleDoubleExpression(Math.pow(getDouble(), saveDouble(value)), List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(Math.pow(getAsDouble(), saveDouble(value)), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(Math.pow(SimpleDoubleExpression.this.getDouble(), saveDouble(value)));
+                setValue(Math.pow(SimpleDoubleExpression.this.getAsDouble(), saveDouble(value)));
             }
         };
     }
@@ -272,12 +272,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
         double mod = saveDouble(value);
         if (mod == 0) throw divisionByZeroException();
         if (mod == 1) return this;
-        return new SimpleDoubleExpression(getDouble() % mod, this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() % mod, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() % mod);
+                setValue(SimpleDoubleExpression.this.getAsDouble() % mod);
             }
         };
     }
@@ -286,13 +286,13 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> modulo(Supplier<? extends Number> value)
     {
         double mod = saveDouble(value);
-        return new SimpleDoubleExpression(mod == 0 ? 0 : getDouble() % mod, this, getEventHandler())
+        return new SimpleDoubleExpression(mod == 0 ? 0 : getAsDouble() % mod, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 double mod = saveDouble(value);
-                setValue(mod == 0 ? 0 : SimpleDoubleExpression.this.getDouble() % mod);
+                setValue(mod == 0 ? 0 : SimpleDoubleExpression.this.getAsDouble() % mod);
             }
         };
     }
@@ -301,13 +301,13 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public NumberExpression<Double> modulo(ObservableSingle<? extends Number> value)
     {
         double mod = saveDouble(value);
-        return new SimpleDoubleExpression(mod == 0 ? 0 : getDouble() % mod, List.of(this, value), getEventHandler())
+        return new SimpleDoubleExpression(mod == 0 ? 0 : getAsDouble() % mod, List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 double mod = saveDouble(value);
-                setValue(mod == 0 ? 0 : SimpleDoubleExpression.this.getDouble() % mod);
+                setValue(mod == 0 ? 0 : SimpleDoubleExpression.this.getAsDouble() % mod);
             }
         };
     }
@@ -315,12 +315,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> sqrt()
     {
-        return new SimpleDoubleExpression(Math.sqrt(getDouble()), this, getEventHandler())
+        return new SimpleDoubleExpression(Math.sqrt(getAsDouble()), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(Math.sqrt(SimpleDoubleExpression.this.getDouble()));
+                setValue(Math.sqrt(SimpleDoubleExpression.this.getAsDouble()));
             }
         };
     }
@@ -328,12 +328,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> invert()
     {
-        return new SimpleDoubleExpression(getDouble() * -1, this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() * -1, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() * -1);
+                setValue(SimpleDoubleExpression.this.getAsDouble() * -1);
             }
         };
     }
@@ -341,12 +341,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> positive()
     {
-        return new SimpleDoubleExpression(getDouble() >= 0 ? getDouble() : getDouble() * -1, this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() >= 0 ? getAsDouble() : getAsDouble() * -1, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() >= 0 ? SimpleDoubleExpression.this.getDouble() : SimpleDoubleExpression.this.getDouble() * -1);
+                setValue(SimpleDoubleExpression.this.getAsDouble() >= 0 ? SimpleDoubleExpression.this.getAsDouble() : SimpleDoubleExpression.this.getAsDouble() * -1);
             }
         };
     }
@@ -354,12 +354,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> negative()
     {
-        return new SimpleDoubleExpression(getDouble() <= 0 ? getDouble() : getDouble() * -1, this, getEventHandler())
+        return new SimpleDoubleExpression(getAsDouble() <= 0 ? getAsDouble() : getAsDouble() * -1, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() <= 0 ? SimpleDoubleExpression.this.getDouble() : SimpleDoubleExpression.this.getDouble() * -1);
+                setValue(SimpleDoubleExpression.this.getAsDouble() <= 0 ? SimpleDoubleExpression.this.getAsDouble() : SimpleDoubleExpression.this.getAsDouble() * -1);
             }
         };
     }
@@ -367,12 +367,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isBiggerThan(Number value)
     {
-        return new SimpleBooleanExpression(getDouble() > saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() > saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() > saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() > saveDouble(value));
             }
         };
     }
@@ -380,12 +380,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isBiggerThan(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() > saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() > saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() > saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() > saveDouble(value));
             }
         };
     }
@@ -393,12 +393,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isBiggerThan(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() > saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() > saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() > saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() > saveDouble(value));
             }
         };
     }
@@ -406,12 +406,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isBiggerThanOrEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getDouble() >= saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() >= saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() >= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() >= saveDouble(value));
             }
         };
     }
@@ -420,12 +420,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     public BooleanExpression isBiggerThanOrEqualTo(Supplier<? extends Number> value)
     {
 
-        return new SimpleBooleanExpression(getDouble() >= saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() >= saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() >= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() >= saveDouble(value));
             }
         };
     }
@@ -433,12 +433,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isBiggerThanOrEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() >= saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() >= saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() >= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() >= saveDouble(value));
             }
         };
     }
@@ -446,12 +446,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThan(Number value)
     {
-        return new SimpleBooleanExpression(getDouble() < saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() < saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() < saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() < saveDouble(value));
             }
         };
     }
@@ -459,12 +459,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThan(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() < saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() < saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() < saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() < saveDouble(value));
             }
         };
     }
@@ -472,12 +472,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThan(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() < saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() < saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() < saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() < saveDouble(value));
             }
         };
     }
@@ -485,12 +485,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThanOrEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getDouble() <= saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() <= saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() <= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() <= saveDouble(value));
             }
         };
     }
@@ -498,12 +498,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThanOrEqualTo(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() <= saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() <= saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() <= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() <= saveDouble(value));
             }
         };
     }
@@ -511,12 +511,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isLessThanOrEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() <= saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() <= saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() <= saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() <= saveDouble(value));
             }
         };
     }
@@ -524,12 +524,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getDouble() == saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() == saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() == saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() == saveDouble(value));
             }
         };
     }
@@ -537,12 +537,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isEqualTo(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() == saveDouble(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() == saveDouble(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() == saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() == saveDouble(value));
             }
         };
     }
@@ -550,12 +550,12 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public BooleanExpression isEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getDouble() == saveDouble(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsDouble() == saveDouble(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleDoubleExpression.this.getDouble() == saveDouble(value));
+                setValue(SimpleDoubleExpression.this.getAsDouble() == saveDouble(value));
             }
         };
     }
@@ -567,21 +567,21 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         validate();
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         validate();
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         validate();
         return (int) value;
@@ -595,29 +595,29 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         validate();
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         validate();
         return (long) value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
-        return BigDecimal.valueOf(getDouble());
+        return BigDecimal.valueOf(getAsDouble());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 
 }

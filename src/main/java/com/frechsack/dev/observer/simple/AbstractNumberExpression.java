@@ -49,11 +49,11 @@ public abstract class AbstractNumberExpression<E extends Number> extends Abstrac
         NumberExpression<Integer> mapIntegerExpr = mapIntegerExprRef == null ? null : mapIntegerExprRef.get();
         if(mapIntegerExpr == null)
         {
-            mapIntegerExpr = new SimpleIntegerExpression(getInt(),this,getEventHandler()) {
+            mapIntegerExpr = new SimpleIntegerExpression(getAsInt(), this, getEventHandler()) {
                 @Override
                 protected void computeValue()
                 {
-                    setValue(AbstractNumberExpression.this.getInt());
+                    setValue(AbstractNumberExpression.this.getAsInt());
                 }
             };
             mapIntegerExprRef = new WeakReference<>(mapIntegerExpr);
@@ -67,11 +67,11 @@ public abstract class AbstractNumberExpression<E extends Number> extends Abstrac
         NumberExpression<Long> mapLongExpr = mapLongExprRef == null ? null : mapLongExprRef.get();
         if(mapLongExpr == null)
         {
-            mapLongExpr = new SimpleLongExpression(getLong(),this,getEventHandler()) {
+            mapLongExpr = new SimpleLongExpression(getAsLong(), this, getEventHandler()) {
                 @Override
                 protected void computeValue()
                 {
-                    setValue(AbstractNumberExpression.this.getLong());
+                    setValue(AbstractNumberExpression.this.getAsLong());
                 }
             };
             mapLongExprRef = new WeakReference<>(mapLongExpr);
@@ -85,11 +85,11 @@ public abstract class AbstractNumberExpression<E extends Number> extends Abstrac
         NumberExpression<Double> mapDoubleExpr = mapDoubleExprRef == null ? null : mapDoubleExprRef.get();
         if(mapDoubleExpr == null)
         {
-            mapDoubleExpr = new SimpleDoubleExpression(getDouble(),this,getEventHandler()) {
+            mapDoubleExpr = new SimpleDoubleExpression(getAsDouble(), this, getEventHandler()) {
                 @Override
                 protected void computeValue()
                 {
-                    setValue(AbstractNumberExpression.this.getDouble());
+                    setValue(AbstractNumberExpression.this.getAsDouble());
                 }
             };
             mapDoubleExprRef = new WeakReference<>(mapDoubleExpr);

@@ -4,6 +4,7 @@ import com.frechsack.dev.observer.simple.SimpleBooleanExpression;
 import com.frechsack.dev.observer.simple.SimpleObservables;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
@@ -14,7 +15,7 @@ import java.util.function.Supplier;
  * @author Frechsack
  * @see Expression
  */
-public interface BooleanExpression extends Expression<Boolean>
+public interface BooleanExpression extends Expression<Boolean>,Supplier<Boolean>, BooleanSupplier
 {
     /**
      * Gets a new BooleanExpression with the result of this Expression´s value and a logical and with the specified boolean.
@@ -28,7 +29,7 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression and(boolean value)
     {
-        return new SimpleBooleanExpression(getBoolean() && value, this)
+        return new SimpleBooleanExpression(getAsBoolean() && value, this)
         {
             @Override
             protected void computeValue()
@@ -50,12 +51,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression and(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() && SimpleObservables.saveBoolean(value), this)
+        return new SimpleBooleanExpression(getAsBoolean() && SimpleObservables.saveBoolean(value), this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() && SimpleObservables.saveBoolean(value));
+                setValue(BooleanExpression.this.getAsBoolean() && SimpleObservables.saveBoolean(value));
             }
         };
     }
@@ -73,12 +74,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression and(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() && SimpleObservables.saveBoolean(value), List.of(this, value))
+        return new SimpleBooleanExpression(getAsBoolean() && SimpleObservables.saveBoolean(value), List.of(this, value))
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() && SimpleObservables.saveBoolean(value));
+                setValue(BooleanExpression.this.getAsBoolean() && SimpleObservables.saveBoolean(value));
             }
         };
     }
@@ -95,7 +96,7 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression or(boolean value)
     {
-        return new SimpleBooleanExpression(getBoolean() || value, this)
+        return new SimpleBooleanExpression(getAsBoolean() || value, this)
         {
             @Override
             protected void computeValue()
@@ -117,12 +118,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression or(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() || SimpleObservables.saveBoolean(value), this)
+        return new SimpleBooleanExpression(getAsBoolean() || SimpleObservables.saveBoolean(value), this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() || SimpleObservables.saveBoolean(value));
+                setValue(BooleanExpression.this.getAsBoolean() || SimpleObservables.saveBoolean(value));
             }
         };
     }
@@ -140,12 +141,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression or(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() || SimpleObservables.saveBoolean(value), List.of(this, value))
+        return new SimpleBooleanExpression(getAsBoolean() || SimpleObservables.saveBoolean(value), List.of(this, value))
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() || SimpleObservables.saveBoolean(value));
+                setValue(BooleanExpression.this.getAsBoolean() || SimpleObservables.saveBoolean(value));
             }
         };
     }
@@ -162,12 +163,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression xor(boolean value)
     {
-        return new SimpleBooleanExpression(getBoolean() != value, this)
+        return new SimpleBooleanExpression(getAsBoolean() != value, this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() != value);
+                setValue(BooleanExpression.this.getAsBoolean() != value);
             }
         };
     }
@@ -184,12 +185,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression xor(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() != SimpleObservables.saveBoolean(value.get()), this)
+        return new SimpleBooleanExpression(getAsBoolean() != SimpleObservables.saveBoolean(value.get()), this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() != SimpleObservables.saveBoolean(value.get()));
+                setValue(BooleanExpression.this.getAsBoolean() != SimpleObservables.saveBoolean(value.get()));
             }
         };
     }
@@ -207,12 +208,12 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression xor(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() != SimpleObservables.saveBoolean(value.get()), List.of(this, value))
+        return new SimpleBooleanExpression(getAsBoolean() != SimpleObservables.saveBoolean(value.get()), List.of(this, value))
         {
             @Override
             protected void computeValue()
             {
-                setValue(BooleanExpression.this.getBoolean() != SimpleObservables.saveBoolean(value.get()));
+                setValue(BooleanExpression.this.getAsBoolean() != SimpleObservables.saveBoolean(value.get()));
             }
         };
     }
@@ -229,22 +230,15 @@ public interface BooleanExpression extends Expression<Boolean>
      */
     default BooleanExpression invert()
     {
-        return new SimpleBooleanExpression(!getBoolean(), this)
+        return new SimpleBooleanExpression(!getAsBoolean(), this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(!BooleanExpression.this.getBoolean());
+                setValue(!BooleanExpression.this.getAsBoolean());
             }
         };
     }
-
-    /**
-     * Gets the value of this Expression as a primitive boolean.
-     *
-     * @return Returns this Expression´s value.
-     */
-    boolean getBoolean();
 
     /**
      * Returns the value of this Expression. The returned Boolean shouldn´t be null.

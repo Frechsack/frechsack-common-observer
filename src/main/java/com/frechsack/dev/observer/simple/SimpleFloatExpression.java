@@ -565,21 +565,21 @@ public abstract class SimpleFloatExpression extends AbstractNumberExpression<Flo
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         validate();
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         validate();
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         validate();
         return (int) value;
@@ -593,28 +593,28 @@ public abstract class SimpleFloatExpression extends AbstractNumberExpression<Flo
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         validate();
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         validate();
         return (long) value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
         return BigDecimal.valueOf(getFloat());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 }

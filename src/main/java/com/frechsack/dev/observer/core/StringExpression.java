@@ -181,8 +181,10 @@ public interface StringExpression extends Expression<String>
      * @see SimpleObservables
      * @see com.frechsack.dev.observer.simple.EventHandler
      */
-    default NumberExpression<Integer> lengthExpression() {
-        return new SimpleIntegerExpression(getString().length(),this) {
+    default NumberExpression<Integer> lengthExpression()
+    {
+        return new SimpleIntegerExpression(getString().length(), this)
+        {
             @Override
             protected void computeValue()
             {
@@ -190,16 +192,23 @@ public interface StringExpression extends Expression<String>
             }
         };
     }
+
     /**
-     * Gets the value of this Expression as a String. The returned String will never be null.
+     * Gets the value of this Expression as a {@link String}. The returned String will never be null.
      *
      * @return Returns this Expression´s value.
+     * @implNote The default implementations returns the value supplied by {@link #get()} if it´s not null - a null value will be translated to an empty String.
      */
-    String getString();
+    default String getString()
+    {
+        String s = get();
+        return s == null ? "" : s;
+    }
 
     /**
      * Returns the value of this Expression. The returned String shouldn´t be null.
-     * @return Returns this Expression´s The value.
+     *
+     * @return Returns this Expression´s value.
      */
     @Override
     String get();

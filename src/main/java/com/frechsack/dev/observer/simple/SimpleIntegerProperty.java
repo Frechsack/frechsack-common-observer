@@ -8,7 +8,6 @@ import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Objects;
 
 public class SimpleIntegerProperty extends AbstractProperty<Integer> implements NumberProperty<Integer>
 {
@@ -57,45 +56,45 @@ public class SimpleIntegerProperty extends AbstractProperty<Integer> implements 
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return value;
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
-        return BigDecimal.valueOf(getLong());
+        return BigDecimal.valueOf(getAsLong());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 
     @Override

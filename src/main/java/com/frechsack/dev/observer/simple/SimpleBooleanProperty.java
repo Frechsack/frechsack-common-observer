@@ -63,4 +63,10 @@ public class SimpleBooleanProperty extends AbstractProperty<Boolean> implements 
         property.toExprRef = null;
         return property;
     }
+
+    @Override
+    public boolean getAsBoolean()
+    {
+        return value;
+    }
 }

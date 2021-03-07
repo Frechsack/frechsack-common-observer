@@ -1,7 +1,6 @@
 package com.frechsack.dev.observer.simple;
 
 import com.frechsack.dev.observer.core.BooleanExpression;
-import com.frechsack.dev.observer.core.StringExpression;
 import com.frechsack.dev.observer.core.ObservableSingle;
 
 import java.util.List;
@@ -24,12 +23,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression and(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() && saveBoolean(value), this)
+        return new SimpleBooleanExpression(getAsBoolean() && saveBoolean(value), this)
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) && SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) && SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -37,12 +36,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression and(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() && saveBoolean(value), List.of(this, value))
+        return new SimpleBooleanExpression(getAsBoolean() && saveBoolean(value), List.of(this, value))
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) && SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) && SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -56,12 +55,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression or(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() || saveBoolean(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsBoolean() || saveBoolean(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) || SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) || SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -69,12 +68,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression or(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() || saveBoolean(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsBoolean() || saveBoolean(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) || SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) || SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -82,12 +81,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression xor(boolean value)
     {
-        return new SimpleBooleanExpression(getBoolean() != value, this, getEventHandler())
+        return new SimpleBooleanExpression(getAsBoolean() != value, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(value != SimpleBooleanWrapper.this.getBoolean());
+                setValue(value != SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -95,12 +94,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression xor(Supplier<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() != saveBoolean(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsBoolean() != saveBoolean(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) != SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) != SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -108,12 +107,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression xor(ObservableSingle<Boolean> value)
     {
-        return new SimpleBooleanExpression(getBoolean() != saveBoolean(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsBoolean() != saveBoolean(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(saveBoolean(value) != SimpleBooleanWrapper.this.getBoolean());
+                setValue(saveBoolean(value) != SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -121,12 +120,12 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     @Override
     public BooleanExpression invert()
     {
-        return new SimpleBooleanExpression(!getBoolean(), this, getEventHandler())
+        return new SimpleBooleanExpression(!getAsBoolean(), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(!SimpleBooleanWrapper.this.getBoolean());
+                setValue(!SimpleBooleanWrapper.this.getAsBoolean());
             }
         };
     }
@@ -138,7 +137,7 @@ public class SimpleBooleanWrapper extends AbstractWrapper<Boolean> implements Bo
     }
 
     @Override
-    public boolean getBoolean()
+    public boolean getAsBoolean()
     {
         return get();
     }

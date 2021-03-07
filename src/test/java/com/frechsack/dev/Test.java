@@ -18,16 +18,8 @@ public class Test
         SimpleIntegerProperty b = new SimpleIntegerProperty(4,"b",Test.class);
 
 
-        JButton
-
         SimpleIntegerProperty c = (SimpleIntegerProperty) a.clone();
-        a.addObserver(new SingleChangeObserver<Integer>() {
-            @Override
-            public void observed(SingleChangeEvent<? extends Integer> event)
-            {
-                System.out.println(event);
-            }
-        });
+        a.addObserver((SingleChangeObserver<Integer>) System.out::println);
         c.set(99);
         System.out.println(a);
         System.out.println(b);

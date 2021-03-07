@@ -31,45 +31,45 @@ public class SimpleFloatProperty extends AbstractProperty<Float> implements Numb
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return (int) value;
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return (long) value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
-        return BigDecimal.valueOf(getDouble());
+        return BigDecimal.valueOf(getAsDouble());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 
     @Override

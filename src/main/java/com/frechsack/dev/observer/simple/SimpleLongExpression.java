@@ -64,12 +64,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> add(Number value)
     {
         if (saveLong(value) == 0) return this;
-        return new SimpleLongExpression(getLong() + saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() + saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() + saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() + saveLong(value));
             }
         };
     }
@@ -77,12 +77,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> add(Supplier<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() + saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() + saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() + saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() + saveLong(value));
             }
         };
     }
@@ -90,12 +90,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> add(ObservableSingle<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() + saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleLongExpression(getAsLong() + saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() + saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() + saveLong(value));
             }
         };
     }
@@ -104,12 +104,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> subtract(Number value)
     {
         if (saveLong(value) == 0) return this;
-        return new SimpleLongExpression(getLong() - saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() - saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() - saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() - saveLong(value));
             }
         };
     }
@@ -117,12 +117,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> subtract(Supplier<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() - saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() - saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() - saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() - saveLong(value));
             }
         };
     }
@@ -130,12 +130,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> subtract(ObservableSingle<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() - saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleLongExpression(getAsLong() - saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() - saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() - saveLong(value));
             }
         };
     }
@@ -145,12 +145,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     {
         if (saveLong(value) == 0) constantExpression(0L);
         if (saveLong(value) == 1) return this;
-        return new SimpleLongExpression(getLong() * saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() * saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() * saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() * saveLong(value));
             }
         };
     }
@@ -158,12 +158,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> multiply(Supplier<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() * saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() * saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() * saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() * saveLong(value));
             }
         };
     }
@@ -171,12 +171,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> multiply(ObservableSingle<? extends Number> value)
     {
-        return new SimpleLongExpression(getLong() * saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleLongExpression(getAsLong() * saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() * saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() * saveLong(value));
             }
         };
     }
@@ -186,12 +186,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     {
         if (saveLong(value) == 0) throw divisionByZeroException();
         if (saveLong(value) == 1) return this;
-        return new SimpleLongExpression(getLong() / saveLong(value), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() / saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(getLong() / saveLong(value));
+                setValue(getAsLong() / saveLong(value));
             }
         };
     }
@@ -200,13 +200,13 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> divide(Supplier<? extends Number> value)
     {
         long divisor = saveLong(value);
-        return new SimpleLongExpression(divisor == 0 ? 0 : SimpleLongExpression.this.getLong() / divisor, this, getEventHandler())
+        return new SimpleLongExpression(divisor == 0 ? 0 : SimpleLongExpression.this.getAsLong() / divisor, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 long divisor = saveLong(value);
-                setValue(divisor == 0 ? 0 : SimpleLongExpression.this.getLong() / divisor);
+                setValue(divisor == 0 ? 0 : SimpleLongExpression.this.getAsLong() / divisor);
             }
         };
     }
@@ -215,13 +215,13 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> divide(ObservableSingle<? extends Number> value)
     {
         long divisor = saveLong(value);
-        return new SimpleLongExpression(divisor == 0 ? 0 : SimpleLongExpression.this.getLong() / divisor, List.of(this, value), getEventHandler())
+        return new SimpleLongExpression(divisor == 0 ? 0 : SimpleLongExpression.this.getAsLong() / divisor, List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 long divisor = saveLong(value);
-                setValue(divisor == 0 ? 0 : SimpleLongExpression.this.getLong() / divisor);
+                setValue(divisor == 0 ? 0 : SimpleLongExpression.this.getAsLong() / divisor);
             }
         };
     }
@@ -229,12 +229,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> pow(Number value)
     {
-        return new SimpleLongExpression((long) Math.pow(getLong(), saveLong(value)), this, getEventHandler())
+        return new SimpleLongExpression((long) Math.pow(getAsLong(), saveLong(value)), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue((long) Math.pow(SimpleLongExpression.this.getLong(), saveLong(value)));
+                setValue((long) Math.pow(SimpleLongExpression.this.getAsLong(), saveLong(value)));
             }
         };
     }
@@ -243,12 +243,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> pow(Supplier<? extends Number> value)
     {
 
-        return new SimpleLongExpression((long) Math.pow(getLong(), saveLong(value)), this, getEventHandler())
+        return new SimpleLongExpression((long) Math.pow(getAsLong(), saveLong(value)), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue((long) Math.pow(SimpleLongExpression.this.getLong(), saveLong(value)));
+                setValue((long) Math.pow(SimpleLongExpression.this.getAsLong(), saveLong(value)));
             }
         };
     }
@@ -256,12 +256,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> pow(ObservableSingle<? extends Number> value)
     {
-        return new SimpleLongExpression((long) Math.pow(getLong(), saveLong(value)), List.of(this, value), getEventHandler())
+        return new SimpleLongExpression((long) Math.pow(getAsLong(), saveLong(value)), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue((long) Math.pow(SimpleLongExpression.this.getLong(), saveLong(value)));
+                setValue((long) Math.pow(SimpleLongExpression.this.getAsLong(), saveLong(value)));
             }
         };
     }
@@ -272,12 +272,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
         long mod = saveLong(value);
         if (mod == 0) throw divisionByZeroException();
         if (mod == 1) return this;
-        return new SimpleLongExpression(getLong() % mod, this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() % mod, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() % mod);
+                setValue(SimpleLongExpression.this.getAsLong() % mod);
             }
         };
     }
@@ -286,13 +286,13 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> modulo(Supplier<? extends Number> value)
     {
         long mod = saveLong(value);
-        return new SimpleLongExpression(mod == 0 ? 0 : getLong() % mod, this, getEventHandler())
+        return new SimpleLongExpression(mod == 0 ? 0 : getAsLong() % mod, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 long mod = saveLong(value);
-                setValue(SimpleLongExpression.this.getLong() % mod);
+                setValue(SimpleLongExpression.this.getAsLong() % mod);
             }
         };
     }
@@ -301,13 +301,13 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     public NumberExpression<Long> modulo(ObservableSingle<? extends Number> value)
     {
         long mod = saveLong(value);
-        return new SimpleLongExpression(mod == 0 ? 0 : getLong() % mod, List.of(this, value), getEventHandler())
+        return new SimpleLongExpression(mod == 0 ? 0 : getAsLong() % mod, List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
                 long mod = saveLong(value);
-                setValue(SimpleLongExpression.this.getLong() % mod);
+                setValue(SimpleLongExpression.this.getAsLong() % mod);
             }
         };
     }
@@ -315,12 +315,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> sqrt()
     {
-        return new SimpleLongExpression((long) Math.sqrt(getLong()), this, getEventHandler())
+        return new SimpleLongExpression((long) Math.sqrt(getAsLong()), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue((long) Math.sqrt(SimpleLongExpression.this.getLong()));
+                setValue((long) Math.sqrt(SimpleLongExpression.this.getAsLong()));
             }
         };
     }
@@ -328,12 +328,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> invert()
     {
-        return new SimpleLongExpression(getLong() * -1, this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() * -1, this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() * -1);
+                setValue(SimpleLongExpression.this.getAsLong() * -1);
             }
         };
     }
@@ -341,12 +341,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> positive()
     {
-        return new SimpleLongExpression(getLong() < 0 ? getLong() * -1 : getLong(), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() < 0 ? getAsLong() * -1 : getAsLong(), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() < 0 ? SimpleLongExpression.this.getLong() * -1 : SimpleLongExpression.this.getLong());
+                setValue(SimpleLongExpression.this.getAsLong() < 0 ? SimpleLongExpression.this.getAsLong() * -1 : SimpleLongExpression.this.getAsLong());
             }
         };
     }
@@ -354,12 +354,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> negative()
     {
-        return new SimpleLongExpression(getLong() > 0 ? getLong() * -1 : getLong(), this, getEventHandler())
+        return new SimpleLongExpression(getAsLong() > 0 ? getAsLong() * -1 : getAsLong(), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() > 0 ? SimpleLongExpression.this.getLong() * -1 : SimpleLongExpression.this.getLong());
+                setValue(SimpleLongExpression.this.getAsLong() > 0 ? SimpleLongExpression.this.getAsLong() * -1 : SimpleLongExpression.this.getAsLong());
             }
         };
     }
@@ -367,12 +367,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThan(Number value)
     {
-        return new SimpleBooleanExpression(getLong() > saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() > saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() > saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() > saveLong(value));
             }
         };
     }
@@ -380,12 +380,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThan(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() > saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() > saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() > saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() > saveLong(value));
             }
         };
     }
@@ -393,12 +393,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThan(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() > saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() > saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() > saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() > saveLong(value));
             }
         };
     }
@@ -406,12 +406,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThanOrEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getLong() >= saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() >= saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() >= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() >= saveLong(value));
             }
         };
     }
@@ -419,12 +419,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThanOrEqualTo(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() >= saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() >= saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() >= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() >= saveLong(value));
             }
         };
     }
@@ -432,12 +432,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isBiggerThanOrEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() >= saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() >= saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() >= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() >= saveLong(value));
             }
         };
     }
@@ -445,12 +445,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThan(Number value)
     {
-        return new SimpleBooleanExpression(getLong() < saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() < saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() < saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() < saveLong(value));
             }
         };
     }
@@ -458,12 +458,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThan(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() < saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() < saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() < saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() < saveLong(value));
             }
         };
     }
@@ -471,12 +471,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThan(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() < saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() < saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() < saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() < saveLong(value));
             }
         };
     }
@@ -484,12 +484,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThanOrEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getLong() <= saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() <= saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() <= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() <= saveLong(value));
             }
         };
     }
@@ -497,12 +497,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThanOrEqualTo(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() <= saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() <= saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() <= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() <= saveLong(value));
             }
         };
     }
@@ -510,12 +510,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isLessThanOrEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() <= saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() <= saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() <= saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() <= saveLong(value));
             }
         };
     }
@@ -523,12 +523,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isEqualTo(Number value)
     {
-        return new SimpleBooleanExpression(getLong() == saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() == saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() == saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() == saveLong(value));
             }
         };
     }
@@ -536,12 +536,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isEqualTo(Supplier<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() == saveLong(value), this, getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() == saveLong(value), this, getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() == saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() == saveLong(value));
             }
         };
     }
@@ -549,12 +549,12 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public BooleanExpression isEqualTo(ObservableSingle<? extends Number> value)
     {
-        return new SimpleBooleanExpression(getLong() == saveLong(value), List.of(this, value), getEventHandler())
+        return new SimpleBooleanExpression(getAsLong() == saveLong(value), List.of(this, value), getEventHandler())
         {
             @Override
             protected void computeValue()
             {
-                setValue(SimpleLongExpression.this.getLong() == saveLong(value));
+                setValue(SimpleLongExpression.this.getAsLong() == saveLong(value));
             }
         };
     }
@@ -566,21 +566,21 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         validate();
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         validate();
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         validate();
         return (int) value;
@@ -594,28 +594,28 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         validate();
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         validate();
         return value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
-        return BigDecimal.valueOf(getLong());
+        return BigDecimal.valueOf(getAsLong());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getLong());
+        return BigInteger.valueOf(getAsLong());
     }
 }

@@ -12,8 +12,11 @@ import java.util.function.Supplier;
  * <p>
  * Unlike a {@link Property} an Expression is based on a parent. In common implementations the parent is an {@link ObservableSingle}.
  * <p>
+ * The current value of this Expression can be obtained by {@link #get()}.
+ * <p>
  * When the parent`s value changes, this Expression should recalculate it´s value based on it´s mapping.
- * An Expression contains some basic functions to create other Expressions based on this one.
+ * An Expression contains some basic functions to create other Expressions based on it.
+ * <p>
  *
  * @param <E> The value type.
  * @author Frechsack

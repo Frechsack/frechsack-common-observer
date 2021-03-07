@@ -57,45 +57,45 @@ public class SimpleLongProperty extends AbstractProperty<Long> implements Number
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return (byte) value;
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return (short) value;
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return (int) value;
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return value;
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return value;
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
-        return BigDecimal.valueOf(getLong());
+        return BigDecimal.valueOf(getAsLong());
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
-        return BigInteger.valueOf(getInt());
+        return BigInteger.valueOf(getAsInt());
     }
 
     @Override

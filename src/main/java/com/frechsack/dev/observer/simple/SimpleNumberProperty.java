@@ -35,19 +35,19 @@ public class SimpleNumberProperty extends AbstractProperty<Number> implements Nu
     }
 
     @Override
-    public byte getByte()
+    public byte getAsByte()
     {
         return value.byteValue();
     }
 
     @Override
-    public short getShort()
+    public short getAsShort()
     {
         return value.shortValue();
     }
 
     @Override
-    public int getInt()
+    public int getAsInt()
     {
         return value.intValue();
     }
@@ -59,19 +59,19 @@ public class SimpleNumberProperty extends AbstractProperty<Number> implements Nu
     }
 
     @Override
-    public double getDouble()
+    public double getAsDouble()
     {
         return value.doubleValue();
     }
 
     @Override
-    public long getLong()
+    public long getAsLong()
     {
         return value.longValue();
     }
 
     @Override
-    public BigDecimal getBigDecimal()
+    public BigDecimal getAsBigDecimal()
     {
         if (isBigDecimal(value)) return (BigDecimal) value;
         if (isBigInteger(value)) return new BigDecimal((BigInteger) value);
@@ -80,7 +80,7 @@ public class SimpleNumberProperty extends AbstractProperty<Number> implements Nu
     }
 
     @Override
-    public BigInteger getBigInteger()
+    public BigInteger getAsBigInteger()
     {
         if (isBigInteger(value)) return (BigInteger) value;
         if (isBigDecimal(value)) return ((BigDecimal) value).toBigInteger();
