@@ -22,8 +22,8 @@ public abstract class AbstractObservableMultiple<E> extends SimpleObservable imp
             observers = new MultipleChangeObserver[]{observer};
             return true;
         }
-        if (ArrayUtil.containsElement(observers, observer)) return false;
-        observers = ArrayUtil.insertElement(observers, new MultipleChangeObserver[observers.length + 1], observer);
+        if (containsElement(observers, observer)) return false;
+        observers = insertElement(observers, new MultipleChangeObserver[observers.length + 1], observer);
         return true;
     }
 
@@ -32,14 +32,14 @@ public abstract class AbstractObservableMultiple<E> extends SimpleObservable imp
     public boolean removeObserver(MultipleChangeObserver<? super E> observer)
     {
         if (observers == null || observer == null) return false;
-        int observerIndex = ArrayUtil.indexOf(observers, observer);
+        int observerIndex = indexOf(observers, observer);
         if (observerIndex == -1) return false;
         if (observers.length == 1)
         {
             observers = null;
             return true;
         }
-        observers = ArrayUtil.removeIndex(observers, new MultipleChangeObserver[observers.length - 1], observerIndex);
+        observers = removeIndex(observers, new MultipleChangeObserver[observers.length - 1], observerIndex);
         return true;
     }
 
@@ -47,7 +47,7 @@ public abstract class AbstractObservableMultiple<E> extends SimpleObservable imp
     public boolean containsObserver(MultipleChangeObserver<? super E> observer)
     {
         if (observers == null || observer == null) return false;
-        return ArrayUtil.containsElement(observers, observer);
+        return containsElement(observers, observer);
     }
 
     protected boolean isChangeObserved()

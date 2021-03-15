@@ -41,11 +41,4 @@ public interface Observable extends Cloneable
      * @see InvalidationObserver
      */
     boolean containsObserver(InvalidationObserver observer);
-
-    /**
-     * Checks if this Observable is observed. By default an Observable is observed, when it contains more than one Observer.
-     *
-     * @return Returns true if this Observable is observed - else false.
-     */
-    boolean isObserved();
 }

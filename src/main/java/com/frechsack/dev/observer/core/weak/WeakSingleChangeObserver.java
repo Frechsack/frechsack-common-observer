@@ -1,4 +1,4 @@
-package com.frechsack.dev.observer.util;
+package com.frechsack.dev.observer.core.weak;
 
 import com.frechsack.dev.observer.core.SingleChangeObserver;
 

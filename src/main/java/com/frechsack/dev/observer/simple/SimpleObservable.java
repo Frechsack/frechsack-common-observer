@@ -74,8 +74,8 @@ public class SimpleObservable extends SimpleObservables implements Observable, S
             observers = new InvalidationObserver[]{observer};
             return true;
         }
-        if (ArrayUtil.containsElement(observers, observer)) return false;
-        observers = ArrayUtil.insertElement(observers, new InvalidationObserver[observers.length + 1], observer);
+        if (containsElement(observers, observer)) return false;
+        observers = insertElement(observers, new InvalidationObserver[observers.length + 1], observer);
         return true;
     }
 
@@ -84,14 +84,14 @@ public class SimpleObservable extends SimpleObservables implements Observable, S
     public boolean removeObserver(InvalidationObserver observer)
     {
         if (observers == null || observer == null) return false;
-        int observerIndex = ArrayUtil.indexOf(observers, observer);
+        int observerIndex = indexOf(observers, observer);
         if (observerIndex == -1) return false;
         if (observers.length == 1)
         {
             observers = null;
             return true;
         }
-        observers = ArrayUtil.removeIndex(observers, new InvalidationObserver[observers.length - 1], observerIndex);
+        observers = removeIndex(observers, new InvalidationObserver[observers.length - 1], observerIndex);
         return true;
     }
 
@@ -99,18 +99,12 @@ public class SimpleObservable extends SimpleObservables implements Observable, S
     public boolean containsObserver(InvalidationObserver observer)
     {
         if (observers == null || observer == null) return false;
-        return ArrayUtil.containsElement(observers, observer);
+        return containsElement(observers, observer);
     }
 
     protected boolean isInvalidationObserved()
     {
         return observers != null;
-    }
-
-    @Override
-    public boolean isObserved()
-    {
-        return isInvalidationObserved();
     }
 
     private class InvalidationEvent implements InvalidationObserver.InvalidationEvent
@@ -140,7 +134,7 @@ public class SimpleObservable extends SimpleObservables implements Observable, S
         }
     }
 
-    protected int getInvalidationObserverCount()
+    protected int getObserverCount()
     {
         return observers == null ? 0 : observers.length;
     }

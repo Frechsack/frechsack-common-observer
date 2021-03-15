@@ -1,7 +1,7 @@
 package com.frechsack.dev.observer.simple;
 
 import com.frechsack.dev.observer.core.*;
-import com.frechsack.dev.observer.util.WeakInvalidationObserver;
+import com.frechsack.dev.observer.core.weak.WeakInvalidationObserver;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;

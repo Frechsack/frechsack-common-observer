@@ -57,14 +57,6 @@ public interface ObservableSingle<E> extends Observable, Readable<E>, Serializab
      */
     Expression<E> toExpression();
 
-    /**
-     * Checks if this Observable is observed. By default an ObservableSingle is observed, when it contains more than one Invalidation- or ChangeObserver.
-     *
-     * @return Returns true if this Observable is observed - else false.
-     */
-    @Override
-    boolean isObserved();
-
     @Override
     default void subscribe(Flow.Subscriber<? super E> subscriber)
     {

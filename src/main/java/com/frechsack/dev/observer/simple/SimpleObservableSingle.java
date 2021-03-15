@@ -74,8 +74,8 @@ public abstract class SimpleObservableSingle<E> extends SimpleObservable impleme
             observers = new SingleChangeObserver[]{observer};
             return true;
         }
-        if (ArrayUtil.containsElement(observers, observer)) return false;
-        observers = ArrayUtil.insertElement(observers, new SingleChangeObserver[observers.length + 1], observer);
+        if (containsElement(observers, observer)) return false;
+        observers = insertElement(observers, new SingleChangeObserver[observers.length + 1], observer);
         return true;
     }
 
@@ -84,14 +84,14 @@ public abstract class SimpleObservableSingle<E> extends SimpleObservable impleme
     public boolean removeObserver(SingleChangeObserver<? super E> observer)
     {
         if (observers == null || observer == null) return false;
-        int observerIndex = ArrayUtil.indexOf(observers, observer);
+        int observerIndex = indexOf(observers, observer);
         if (observerIndex == -1) return false;
         if (observers.length == 1)
         {
             observers = null;
             return true;
         }
-        observers = ArrayUtil.removeIndex(observers, new SingleChangeObserver[observers.length - 1], observerIndex);
+        observers = removeIndex(observers, new SingleChangeObserver[observers.length - 1], observerIndex);
         return true;
     }
 
@@ -99,7 +99,7 @@ public abstract class SimpleObservableSingle<E> extends SimpleObservable impleme
     public boolean containsObserver(SingleChangeObserver<? super E> observer)
     {
         if (observers == null || observer == null) return false;
-        return ArrayUtil.containsElement(observers, observer);
+        return containsElement(observers, observer);
     }
 
     @Override
@@ -114,15 +114,10 @@ public abstract class SimpleObservableSingle<E> extends SimpleObservable impleme
         return toExpression;
     }
 
-    protected int getChangeObserverCount()
-    {
-        return observers == null ? 0 : observers.length;
-    }
-
     @Override
-    public boolean isObserved()
+    protected int getObserverCount()
     {
-        return isChangeObserved() || isInvalidationObserved();
+        return super.getObserverCount() + (observers == null ? 0 : observers.length);
     }
 
     protected boolean isChangeObserved()
@@ -194,7 +189,7 @@ public abstract class SimpleObservableSingle<E> extends SimpleObservable impleme
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         SimpleObservableSingle<?> that = (SimpleObservableSingle<?>) o;
-        return Arrays.equals(observers, that.observers) && Objects.equals(lastValue, that.lastValue) && Objects.equals(get(),that.get());
+        return Arrays.equals(observers, that.observers) && Objects.equals(lastValue, that.lastValue) && Objects.equals(get(), that.get());
     }
 
     @Override

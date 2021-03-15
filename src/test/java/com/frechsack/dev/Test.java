@@ -3,17 +3,20 @@ package com.frechsack.dev;
 
 import com.frechsack.dev.observer.core.*;
 import com.frechsack.dev.observer.simple.SimpleIntegerProperty;
+import com.sun.jdi.BooleanValue;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.Flow;
 
 public class Test
 {
 
     public static void main(String[] args) throws InterruptedException, CloneNotSupportedException
     {
+
         SimpleIntegerProperty a = new SimpleIntegerProperty(2,"a",Test.class);
         SimpleIntegerProperty b = new SimpleIntegerProperty(4,"b",Test.class);
 
