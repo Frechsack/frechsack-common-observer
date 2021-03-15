@@ -53,7 +53,7 @@ public class SimpleBooleanProperty extends AbstractProperty<Boolean> implements 
     @Override
     public boolean set(Boolean value)
     {
-        return set(value != null && value);
+        return set(saveBoolean(value));
     }
 
     @Override

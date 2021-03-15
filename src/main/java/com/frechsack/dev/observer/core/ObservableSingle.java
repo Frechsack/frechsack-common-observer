@@ -1,6 +1,8 @@
 package com.frechsack.dev.observer.core;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.concurrent.Flow;
 
 /**
  * Marks an Object as Observable. This interface specifies that this {@link Observable} contains a single value.
@@ -18,7 +20,7 @@ import java.io.Serializable;
  * @see SingleChangeObserver
  * @see com.frechsack.dev.observer.core.SingleChangeObserver.SingleChangeEvent
  */
-public interface ObservableSingle<E> extends Observable, Readable<E>, Serializable
+public interface ObservableSingle<E> extends Observable, Readable<E>, Serializable, Flow.Publisher<E>
 {
     /**
      * Adds an {@link SingleChangeObserver} to this Observable.
@@ -62,4 +64,37 @@ public interface ObservableSingle<E> extends Observable, Readable<E>, Serializab
      */
     @Override
     boolean isObserved();
+
+    @Override
+    default void subscribe(Flow.Subscriber<? super E> subscriber)
+    {
+        Objects.requireNonNull(subscriber, "A null subscriber can not be added.");
+        final SingleChangeObserver<E> observer = event ->
+        {
+            try
+            {
+                subscriber.onNext(event.get());
+            }
+            catch (Exception e)
+            {
+                subscriber.onError(e);
+            }
+        };
+        final Flow.Subscription subscription = new Flow.Subscription()
+        {
+            @Override
+            public void request(long n)
+            {
+            }
+
+            @Override
+            public void cancel()
+            {
+                removeObserver(observer);
+                subscriber.onComplete();
+            }
+        };
+        addObserver(observer);
+        subscriber.onSubscribe(subscription);
+    }
 }

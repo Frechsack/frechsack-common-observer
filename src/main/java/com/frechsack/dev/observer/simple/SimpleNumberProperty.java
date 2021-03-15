@@ -96,6 +96,7 @@ public class SimpleNumberProperty extends AbstractProperty<Number> implements Nu
     @Override
     public boolean set(Number value)
     {
+        value = saveNumber(value);
         if (isEqualToOperation(this.value, value)) return false;
         this.value = value;
         invalidate();

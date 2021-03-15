@@ -61,7 +61,7 @@ public abstract class SimpleBooleanExpression extends AbstractExpression<Boolean
     @Override
     public BooleanExpression and(boolean value)
     {
-        return !value ? constantExpression(false) : this;
+        return !value ? of(false) : this;
     }
 
     @Override
@@ -93,7 +93,7 @@ public abstract class SimpleBooleanExpression extends AbstractExpression<Boolean
     @Override
     public BooleanExpression or(boolean value)
     {
-        return value ? constantExpression(false) : this;
+        return value ? of(false) : this;
     }
 
     @Override
@@ -184,6 +184,6 @@ public abstract class SimpleBooleanExpression extends AbstractExpression<Boolean
     @Override
     public BooleanExpression valueIsNullExpression()
     {
-        return constantExpression(false);
+        return of(false);
     }
 }

@@ -45,7 +45,7 @@ public class SimpleLongProperty extends AbstractProperty<Long> implements Number
     @Override
     public boolean set(Long value)
     {
-        return set(value == null ? 0 : value);
+        return set(saveLong(value));
     }
 
     @Override

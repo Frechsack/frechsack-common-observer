@@ -1,6 +1,5 @@
-package com.frechsack.dev.observer.util;
+package com.frechsack.dev.cursor;
 
-import java.lang.reflect.Array;
 import java.util.function.Consumer;
 
 public class ArrayCursor<E> implements Cursor<E>

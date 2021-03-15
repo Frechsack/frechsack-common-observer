@@ -1,6 +1,6 @@
 package com.frechsack.dev.observer.core;
 
-import com.frechsack.dev.observer.util.Cursor;
+import com.frechsack.dev.cursor.Cursor;
 
 import java.util.Collection;
 

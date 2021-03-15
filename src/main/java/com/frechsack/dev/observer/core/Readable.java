@@ -1,5 +1,7 @@
 package com.frechsack.dev.observer.core;
 
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -15,4 +17,10 @@ public interface Readable<E> extends Supplier<E>
      */
     @Override
     E get();
+
+    default <T> Supplier<T> andThen(Function<E, T> mapper)
+    {
+        Objects.requireNonNull(mapper);
+        return () -> mapper.apply(get());
+    }
 }

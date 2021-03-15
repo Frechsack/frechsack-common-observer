@@ -107,7 +107,7 @@ public interface Expression<E> extends ObservableSingle<E>
      * @see SimpleObservables
      * @see com.frechsack.dev.observer.simple.EventHandler
      */
-    default NumberExpression<Integer> mapInteger(Function<Expression<E>, Integer> map)
+    default NumberExpression<Integer> mapInteger(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleIntegerExpression(SimpleObservables.saveInt(map.apply(this)), this)
         {
@@ -131,7 +131,7 @@ public interface Expression<E> extends ObservableSingle<E>
      * @see SimpleObservables
      * @see EventHandler
      */
-    default NumberExpression<Long> mapLong(Function<Expression<E>, Long> map)
+    default NumberExpression<Long> mapLong(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleLongExpression(SimpleObservables.saveLong(map.apply(this)), this)
         {
@@ -155,7 +155,7 @@ public interface Expression<E> extends ObservableSingle<E>
      * @see SimpleObservables
      * @see EventHandler
      */
-    default NumberExpression<Float> mapFloat(Function<Expression<E>, Float> map)
+    default NumberExpression<Float> mapFloat(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleFloatExpression(SimpleObservables.saveFloat(map.apply(this)), this)
         {
@@ -179,7 +179,7 @@ public interface Expression<E> extends ObservableSingle<E>
      * @see SimpleObservables
      * @see EventHandler
      */
-    default NumberExpression<Double> mapDouble(Function<Expression<E>, Double> map)
+    default NumberExpression<Double> mapDouble(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleDoubleExpression(SimpleObservables.saveDouble(map.apply(this)), this)
         {
@@ -205,7 +205,7 @@ public interface Expression<E> extends ObservableSingle<E>
      */
     default <T> Expression<T> map(Function<Expression<E>, T> map)
     {
-        return new SimpleObjectExpression<T>(map.apply(this), this)
+        return new SimpleObjectExpression<>(map.apply(this), this)
         {
             @Override
             protected void computeValue()

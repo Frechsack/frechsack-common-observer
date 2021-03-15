@@ -44,6 +44,11 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
         value = initialValue;
     }
 
+    protected final void setValue(Number value)
+    {
+        this.value = saveLong(value);
+    }
+
     protected final void setValue(Long value)
     {
         this.value = saveLong(value);
@@ -143,7 +148,7 @@ public abstract class SimpleLongExpression extends AbstractNumberExpression<Long
     @Override
     public NumberExpression<Long> multiply(Number value)
     {
-        if (saveLong(value) == 0) constantExpression(0L);
+        if (saveLong(value) == 0) of(0L);
         if (saveLong(value) == 1) return this;
         return new SimpleLongExpression(getAsLong() * saveLong(value), this, getEventHandler())
         {

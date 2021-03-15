@@ -2,8 +2,8 @@ package com.frechsack.dev.observer.simple;
 
 import com.frechsack.dev.observer.core.MultipleChangeObserver;
 import com.frechsack.dev.observer.core.ObservableMultiple;
-import com.frechsack.dev.observer.util.Cursor;
-import com.frechsack.dev.observer.util.SingleCursor;
+import com.frechsack.dev.cursor.Cursor;
+import com.frechsack.dev.cursor.SingleCursor;
 
 import java.util.*;
 

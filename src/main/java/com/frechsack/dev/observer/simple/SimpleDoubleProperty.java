@@ -46,7 +46,7 @@ public class SimpleDoubleProperty extends AbstractProperty<Double> implements Nu
     @Override
     public boolean set(Double value)
     {
-        return set(value == null ? 0 : value);
+        return set(saveDouble(value));
     }
 
     @Override

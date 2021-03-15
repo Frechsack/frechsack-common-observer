@@ -187,7 +187,7 @@ public abstract class AbstractExpression<E> extends SimpleObservableSingle<E> im
     }
 
     @Override
-    public final NumberExpression<Double> mapDouble(Function<Expression<E>, Double> map)
+    public final NumberExpression<Double> mapDouble(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleDoubleExpression(saveDouble(map.apply(this)), this, getEventHandler())
         {
@@ -200,7 +200,7 @@ public abstract class AbstractExpression<E> extends SimpleObservableSingle<E> im
     }
 
     @Override
-    public final NumberExpression<Float> mapFloat(Function<Expression<E>, Float> map)
+    public final NumberExpression<Float> mapFloat(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleFloatExpression(saveFloat(map.apply(this)), this, getEventHandler())
         {
@@ -213,7 +213,7 @@ public abstract class AbstractExpression<E> extends SimpleObservableSingle<E> im
     }
 
     @Override
-    public final NumberExpression<Integer> mapInteger(Function<Expression<E>, Integer> map)
+    public final NumberExpression<Integer> mapInteger(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleIntegerExpression(saveInt(map.apply(this)), this, getEventHandler())
         {
@@ -226,7 +226,7 @@ public abstract class AbstractExpression<E> extends SimpleObservableSingle<E> im
     }
 
     @Override
-    public final NumberExpression<Long> mapLong(Function<Expression<E>, Long> map)
+    public final NumberExpression<Long> mapLong(Function<Expression<E>, ? extends Number> map)
     {
         return new SimpleLongExpression(saveLong(map.apply(this)), this, getEventHandler())
         {

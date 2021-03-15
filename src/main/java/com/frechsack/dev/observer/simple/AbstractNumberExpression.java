@@ -118,7 +118,7 @@ public abstract class AbstractNumberExpression<E extends Number> extends Abstrac
     @Override
     public final BooleanExpression valueIsNullExpression()
     {
-        return constantExpression(false);
+        return of(false);
     }
 
     @Override

@@ -62,7 +62,10 @@ public abstract class SimpleIntegerExpression extends AbstractNumberExpression<I
         this.value = value;
     }
 
-
+    protected final void setValue(Number value)
+    {
+        this.value = saveInt(value);
+    }
     @Override
     public NumberExpression<Integer> add(Number value)
     {
@@ -149,7 +152,7 @@ public abstract class SimpleIntegerExpression extends AbstractNumberExpression<I
     public NumberExpression<Integer> multiply(Number value)
     {
         int integer = saveInt(value);
-        if (integer == 0) constantExpression(0);
+        if (integer == 0) of(0);
         if (integer == 1) return this;
         return new SimpleIntegerExpression(getAsInt() * integer, this, getEventHandler())
         {

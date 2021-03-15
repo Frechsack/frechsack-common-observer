@@ -42,6 +42,7 @@ public class SimpleStringProperty extends AbstractProperty<String> implements St
     @Override
     public boolean set(String value)
     {
+        value = saveString(value);
         if (Objects.equals(this.value, value)) return false;
         this.value = AbstractExpression.saveString(value);
         invalidate();

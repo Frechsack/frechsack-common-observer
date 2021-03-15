@@ -138,7 +138,7 @@ public abstract class SimpleNumberExpression extends AbstractNumberExpression<Nu
     @Override
     public NumberExpression<Number> multiply(Number value)
     {
-        if (isZero(value)) return constantExpression(saveNumber(value));
+        if (isZero(value)) return of(saveNumber(value));
         return new SimpleNumberExpression(multiplyOperation(get(), value), this, getEventHandler())
         {
             @Override

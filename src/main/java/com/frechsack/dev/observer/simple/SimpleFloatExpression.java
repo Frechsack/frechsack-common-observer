@@ -49,6 +49,11 @@ public abstract class SimpleFloatExpression extends AbstractNumberExpression<Flo
         this.value = saveFloat(value);
     }
 
+    protected final void setValue(Number value)
+    {
+        this.value = saveFloat(value);
+    }
+
     protected final void setValue(float value)
     {
         this.value = value;
@@ -143,7 +148,7 @@ public abstract class SimpleFloatExpression extends AbstractNumberExpression<Flo
     @Override
     public NumberExpression<Float> multiply(Number value)
     {
-        if (saveFloat(value) == 0) return constantExpression(0f);
+        if (saveFloat(value) == 0) return of(0f);
         if (saveFloat(value) == 1) return this;
         return new SimpleFloatExpression(getFloat() * saveFloat(value), this, getEventHandler())
         {

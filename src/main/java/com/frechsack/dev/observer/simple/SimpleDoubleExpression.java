@@ -56,6 +56,11 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
         this.value = saveDouble(value);
     }
 
+    protected final void setValue(Number value)
+    {
+        this.value = saveDouble(value);
+    }
+
     protected final void setValue(double value)
     {
         this.value = value;
@@ -144,7 +149,7 @@ public abstract class SimpleDoubleExpression extends AbstractNumberExpression<Do
     @Override
     public NumberExpression<Double> multiply(Number value)
     {
-        if (saveDouble(value) == 0) return constantExpression(0d);
+        if (saveDouble(value) == 0) return of(0d);
         if (saveDouble(value) == 1) return this;
         return new SimpleDoubleExpression(getAsDouble() * saveDouble(value), this, getEventHandler())
         {

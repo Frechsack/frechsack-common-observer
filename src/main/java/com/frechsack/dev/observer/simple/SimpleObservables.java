@@ -2,11 +2,120 @@ package com.frechsack.dev.observer.simple;
 
 import com.frechsack.dev.observer.core.*;
 
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class SimpleObservables extends SimpleNumberProcessor
 {
-    public static BooleanExpression constantExpression(boolean b)
+    public static <E> BooleanExpression mapBoolean(ObservableSingle<E> observable, Function<Expression<E>, Boolean> mapper)
+    {
+        return observable.toExpression().mapBoolean(mapper);
+    }
+
+    public static <E> StringExpression mapString(ObservableSingle<E> observable, Function<Expression<E>, String> mapper)
+    {
+        return observable.toExpression().mapString(mapper);
+    }
+
+    public static <E> NumberExpression<Integer> mapInteger(ObservableSingle<E> observable, Function<Expression<E>, ? extends Number> mapper)
+    {
+        return observable.toExpression().mapInteger(mapper);
+    }
+
+    public static <E> NumberExpression<Double> mapDouble(ObservableSingle<E> observable, Function<Expression<E>, ? extends Number> mapper)
+    {
+        return observable.toExpression().mapDouble(mapper);
+    }
+
+    public static <E> NumberExpression<Float> mapFloat(ObservableSingle<E> observable, Function<Expression<E>, ? extends Number> mapper)
+    {
+        return observable.toExpression().mapFloat(mapper);
+    }
+
+    public static <E> NumberExpression<Long> mapLong(ObservableSingle<E> observable, Function<Expression<E>, ? extends Number> mapper)
+    {
+        return observable.toExpression().mapLong(mapper);
+    }
+
+    public static <E> NumberExpression<?> mapNumber(ObservableSingle<E> observable, Function<Expression<E>, ? extends Number> mapper)
+    {
+        return observable.toExpression().mapNumber(mapper);
+    }
+
+    public static <K, V> Expression<K> map(ObservableSingle<V> observable, Function<Expression<V>, K> mapper)
+    {
+        return observable.toExpression().map(mapper);
+    }
+
+    /**
+     * Returns an instance of {@link ObservableSingle} and {@link Writeable}.
+     * @param <E>
+     * @return
+     */
+    public static <E> ObservableSingle<E> writeable()
+    {
+        return new WritableObservableSingle<>();
+    }
+
+    public static <E> ObservableSingle<E> writeable(EventHandler eventHandler){
+        return new WritableObservableSingle<>(eventHandler);
+    }
+
+    private static class WritableObservableSingle<E> extends SimpleObservableSingle<E> implements Writeable<E>
+    {
+        private E value;
+
+        public WritableObservableSingle(EventHandler eventHandler)
+        {
+            super(null,eventHandler);
+        }
+
+        public WritableObservableSingle()
+        {
+            super(null);
+        }
+
+        @Override
+        public E get()
+        {
+            return value;
+        }
+
+        @Override
+        public boolean set(E value)
+        {
+            if(Objects.equals(this.value,value)) return false;
+            this.value = value;
+            invalidate();
+            change();
+            return true;
+        }
+    }
+
+    /*
+    public static Expression<?> of(){
+        return new SimpleObjectExpression<>(null)
+        {
+            @Override
+            protected void computeValue()
+            {
+            }
+            @Override
+            public boolean addObserver(SingleChangeObserver<? super Object> observer)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean addObserver(InvalidationObserver observer)
+            {
+                return false;
+            }
+        };
+    }*/
+
+    public static BooleanExpression of(boolean b)
     {
         return new SimpleBooleanExpression(b)
         {
@@ -20,6 +129,7 @@ public class SimpleObservables extends SimpleNumberProcessor
             {
                 return false;
             }
+
             @Override
             public boolean addObserver(InvalidationObserver observer)
             {
@@ -28,7 +138,7 @@ public class SimpleObservables extends SimpleNumberProcessor
         };
     }
 
-    public static NumberExpression<Float> constantExpression(float n)
+    public static NumberExpression<Float> of(float n)
     {
         return new SimpleFloatExpression(n)
         {
@@ -36,11 +146,13 @@ public class SimpleObservables extends SimpleNumberProcessor
             protected void computeValue()
             {
             }
+
             @Override
             public boolean addObserver(InvalidationObserver observer)
             {
                 return false;
             }
+
             @Override
             public boolean addObserver(SingleChangeObserver<? super Float> observer)
             {
@@ -48,7 +160,8 @@ public class SimpleObservables extends SimpleNumberProcessor
             }
         };
     }
-    public static NumberExpression<Integer> constantExpression(int n)
+
+    public static NumberExpression<Integer> of(int n)
     {
         return new SimpleIntegerExpression(n)
         {
@@ -56,11 +169,13 @@ public class SimpleObservables extends SimpleNumberProcessor
             protected void computeValue()
             {
             }
+
             @Override
             public boolean addObserver(InvalidationObserver observer)
             {
                 return false;
             }
+
             @Override
             public boolean addObserver(SingleChangeObserver<? super Integer> observer)
             {
@@ -68,7 +183,8 @@ public class SimpleObservables extends SimpleNumberProcessor
             }
         };
     }
-    public static NumberExpression<Double> constantExpression(double n)
+
+    public static NumberExpression<Double> of(double n)
     {
         return new SimpleDoubleExpression(n)
         {
@@ -76,11 +192,13 @@ public class SimpleObservables extends SimpleNumberProcessor
             protected void computeValue()
             {
             }
+
             @Override
             public boolean addObserver(InvalidationObserver observer)
             {
                 return false;
             }
+
             @Override
             public boolean addObserver(SingleChangeObserver<? super Double> observer)
             {
@@ -88,7 +206,8 @@ public class SimpleObservables extends SimpleNumberProcessor
             }
         };
     }
-    public static NumberExpression<Long> constantExpression(long n)
+
+    public static NumberExpression<Long> of(long n)
     {
         return new SimpleLongExpression(n)
         {
@@ -96,11 +215,13 @@ public class SimpleObservables extends SimpleNumberProcessor
             protected void computeValue()
             {
             }
+
             @Override
             public boolean addObserver(InvalidationObserver observer)
             {
                 return false;
             }
+
             @Override
             public boolean addObserver(SingleChangeObserver<? super Long> observer)
             {
@@ -108,8 +229,12 @@ public class SimpleObservables extends SimpleNumberProcessor
             }
         };
     }
-    public static NumberExpression<Number> constantExpression(Number n){
-        return new SimpleNumberExpression(saveNumber(n)) {
+
+
+    public static NumberExpression<Number> of(Number n)
+    {
+        return new SimpleNumberExpression(saveNumber(n))
+        {
             @Override
             protected void computeValue()
             {
@@ -130,7 +255,7 @@ public class SimpleObservables extends SimpleNumberProcessor
     }
 
 
-    public static <E> Expression<E> constantExpression(E e)
+    public static <E> Expression<E> of(E e)
     {
         return new SimpleObjectExpression<>(e)
         {
@@ -153,7 +278,7 @@ public class SimpleObservables extends SimpleNumberProcessor
         };
     }
 
-    public static StringExpression constantExpression(String s)
+    public static StringExpression of(String s)
     {
         return new SimpleStringExpression(saveString(s))
         {
@@ -179,9 +304,8 @@ public class SimpleObservables extends SimpleNumberProcessor
     private static String classNameFor(Class<?> clazz)
     {
         String className = clazz.getName();
-        if (className.contains("."))
-            if (className.contains("$")) return className.substring(className.lastIndexOf('.') + 1, className.lastIndexOf('$'));
-            else return className.substring(className.lastIndexOf('.') + 1);
+        if (className.contains(".")) if (className.contains("$")) return className.substring(className.lastIndexOf('.') + 1, className.lastIndexOf('$'));
+        else return className.substring(className.lastIndexOf('.') + 1);
         return className;
     }
 
@@ -290,10 +414,7 @@ public class SimpleObservables extends SimpleNumberProcessor
         return value == null ? 0 : value;
     }
 
-    protected static float saveFloat(Number value)
-    {
-        return value == null ? 0 : value.floatValue();
-    }
+    protected static float saveFloat(Number value) { return value == null ? 0 : value.floatValue(); }
 
     protected static double saveDouble(Supplier<? extends Number> value)
     {

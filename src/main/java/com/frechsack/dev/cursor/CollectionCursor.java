@@ -1,4 +1,4 @@
-package com.frechsack.dev.observer.util;
+package com.frechsack.dev.cursor;
 
 import java.util.Collection;
 import java.util.function.Consumer;

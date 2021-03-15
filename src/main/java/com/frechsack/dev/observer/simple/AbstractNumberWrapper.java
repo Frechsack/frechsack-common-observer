@@ -97,7 +97,7 @@ public abstract class AbstractNumberWrapper<E extends Number> extends AbstractWr
     @Override
     public final BooleanExpression valueIsNullExpression()
     {
-        return constantExpression(false);
+        return of(false);
     }
 
     @Override

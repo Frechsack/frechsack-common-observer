@@ -44,7 +44,7 @@ public class SimpleIntegerProperty extends AbstractProperty<Integer> implements 
     @Override
     public boolean set(Integer value)
     {
-        return set(value == null ? 0 : value);
+        return set(saveInt(value));
     }
 
     @Override

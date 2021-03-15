@@ -87,7 +87,7 @@ public class SimpleFloatProperty extends AbstractProperty<Float> implements Numb
     @Override
     public boolean set(Float value)
     {
-        return set(value == null ? 0 : value);
+        return set(saveFloat(value));
     }
 
     public boolean set(float value)
